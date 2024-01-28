@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
     id("com.google.dagger.hilt.android")
 }
 
@@ -60,8 +61,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     //Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.50")
-    annotationProcessor("com.google.dagger:hilt-android-compiler:2.50")
+    val hiltDaggerVersion = "2.48"
+    implementation("com.google.dagger:hilt-android:$hiltDaggerVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltDaggerVersion")
 
 
     //Retrofit
@@ -88,7 +90,7 @@ dependencies {
     //Room
     val room_version = "2.5.2"
     implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:2.5.2")
 
 
