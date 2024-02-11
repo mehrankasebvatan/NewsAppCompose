@@ -1,4 +1,4 @@
-package android.mkv.newsappcompose.presentation.onborading.OnBoardingScreen
+package android.mkv.newsappcompose.presentation.onborading
 
 import android.content.res.Configuration
 import android.mkv.newsappcompose.presentation.Dimens.MediumPadding2
@@ -6,7 +6,6 @@ import android.mkv.newsappcompose.presentation.common.NewsButton
 import android.mkv.newsappcompose.presentation.common.NewsTextButton
 import android.mkv.newsappcompose.presentation.onborading.components.OnBoardingPage
 import android.mkv.newsappcompose.presentation.onborading.components.PageIndicator
-import android.mkv.newsappcompose.presentation.onborading.pages
 import android.mkv.newsappcompose.ui.theme.NewsAppComposeTheme
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +30,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(
+    event: (OnBoardingEvent) -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -54,7 +55,7 @@ fun OnBoardingScreen() {
             OnBoardingPage(page = pages[index])
         }
         Spacer(modifier = Modifier.weight(2f))
-        
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,8 +88,8 @@ fun OnBoardingScreen() {
                     NewsButton(
                         text = buttonState.value[1],
                         onClick = {
-                            if (pagerState.currentPage == 3) {
-                                //TODO: Navigate to Home Page
+                            if (pagerState.currentPage == 2) {
+                                event(OnBoardingEvent.SaveAppEntry)
                             } else {
                                 scope.launch {
                                     pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
@@ -112,7 +113,7 @@ fun OnBoardingScreen() {
 fun OnBoardingScreenPreview() {
     NewsAppComposeTheme {
         Surface {
-            OnBoardingScreen()
+            OnBoardingScreen() {}
         }
     }
 }
